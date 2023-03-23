@@ -8,7 +8,7 @@ const app = express();
 const server = http.createServer(app);
 
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb://localhost:27017')
+mongoose.connect('mongodb+srv://cttadryansantoss:fr187781@cantina-app.0hrzi7i.mongodb.net/test')
   .then(() => {
 
     app.use((req, res, next) => {
