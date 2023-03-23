@@ -19,7 +19,7 @@ export async function loginUser(req: Request,res: Response){
     const passwordMatch = await bcrypt.compare(password, userPassword);
 
     if (!passwordMatch) {
-      return res.sendStatus(401).send().json({ error: 'Senha incorreta' });
+      return res.sendStatus(400).send().json({ error: 'Senha incorreta' });
     }
 
     // Cria um token JWT para o usuário autenticado
