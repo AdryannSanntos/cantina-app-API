@@ -11,15 +11,15 @@ export async function loginUser(req: Request,res: Response){
     const userPassword = findUser?.password;
 
     if(!findUser){
-      res.status(404).json({ error: 'Usuario nao encontrado '});
+      res.sendStatus(404).json({ error: 'Usuario nao encontrado '});
     }
     if(!userPassword){
-      return res.status(404).json({ error: 'Senha não encontrada' });
+      return res.sendStatus(404).json({ error: 'Senha não encontrada' });
     }
     const passwordMatch = await bcrypt.compare(password, userPassword);
 
     if (!passwordMatch) {
-      return res.status(401).json({ error: 'Senha incorreta' });
+      return res.sendStatus(401).json({ error: 'Senha incorreta' });
     }
 
     // Cria um token JWT para o usuário autenticado
