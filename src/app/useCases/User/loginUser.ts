@@ -11,7 +11,7 @@ export async function loginUser(req: Request,res: Response){
     const userPassword = findUser?.password;
 
     if(!findUser){
-      res.sendStatus(404).json({ error: 'Usuario nao encontrado '});
+      res.status(404).json({ message: 'Usuario nao encontrado '});
     }
     if(!userPassword){
       return res.sendStatus(404).json({ error: 'Senha não encontrada' });
@@ -19,7 +19,7 @@ export async function loginUser(req: Request,res: Response){
     const passwordMatch = await bcrypt.compare(password, userPassword);
 
     if (!passwordMatch) {
-      return res.sendStatus(400).send().json({ error: 'Senha incorreta' });
+      return res.status(401).json({ message: 'Senha incorreta' });
     }
 
     // Cria um token JWT para o usuário autenticado
