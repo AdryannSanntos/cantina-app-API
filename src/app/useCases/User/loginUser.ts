@@ -6,8 +6,8 @@ import jwt from 'jsonwebtoken';
 
 export async function loginUser(req: Request,res: Response){
   try {
-    const { phone_number, password } = req.body;
-    const findUser = await User.findOne({ phone_number: phone_number });
+    const { email, password } = req.body;
+    const findUser = await User.findOne({ email: email });
     const userPassword = findUser?.password;
 
     if(!findUser){
@@ -23,7 +23,7 @@ export async function loginUser(req: Request,res: Response){
     }
 
     // Cria um token JWT para o usuário autenticado
-    const token = jwt.sign({ id: findUser.id, level: findUser.userLevel, email: findUser.email, imagePath: findUser.imagePath }, 'secret_key', { expiresIn: '1h' });
+    const token = jwt.sign({ id: findUser.id, level: findUser.userLevel, email: findUser.email, imagePath: findUser.imagePath, verificationCode: findUser.verificationCode }, 'secret_key', { expiresIn: '1h' });
 
     return res.status(200).json({ message: 'Login bem-sucedido', token });
 

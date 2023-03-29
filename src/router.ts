@@ -19,6 +19,7 @@ import { deleteUser } from './app/useCases/User/deleteUser';
 import { loginUser } from './app/useCases/User/loginUser';
 import { updatePassword } from './app/useCases/User/updateUserPassword';
 import { forgetUserPassword } from './app/useCases/User/forgetUserPassword';
+import { sendEmailToUser } from './app/useCases/User/sendEmailToUser';
 
 
 export const router = Router();
@@ -92,3 +93,6 @@ router.patch('/user/update/:userId', changeUserPassword);
 
 // Change User Level
 router.patch('/user/level/:userId', changeUserLevel);
+
+// Change User Level
+router.post('/user/send', sendEmailToUser);
