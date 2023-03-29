@@ -20,8 +20,12 @@ export async function sendEmailToUser(req: Request, res: Response){
     const { email } = req.body;
     const user = await User.findOne({ email: email });
     const transporter = nodemailer.createTransport({
+      host: 'smtp.office365.com',
+      port: 587,
+      secure: false, // true para 465, false para outras portas
       auth: {
-        privateKey: process.env.ADMIN_EMAIL_API_KEY,
+        user: process.env.SENDGRID_USERNAME,
+        pass: process.env.SENDGRID_PASSWORD,
       },
     });
 
