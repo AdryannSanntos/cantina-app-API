@@ -24,8 +24,7 @@ export async function sendEmailToUser(req: Request, res: Response){
       port: 587,
       secure: false, // true para 465, false para outras portas
       auth: {
-        user: 'nailadryan188@outlook.com.br',
-        pass: 'fr187781',
+        privateKey: process.env.ADMIN_EMAIL_API_KEY,
       },
     });
 
