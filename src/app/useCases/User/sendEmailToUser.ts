@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
-
+const sgMail = require('@sendgrid/mail');
 import { User } from './../../models/User';
-import nodemailer from 'nodemailer';
 import { generate6DigitCode } from '../../utils/generate6DigitCode';
 
 export async function sendEmailToUser(req: Request, res: Response){
@@ -19,16 +19,7 @@ export async function sendEmailToUser(req: Request, res: Response){
     // res.status(201).json(newPassword);
     const { email } = req.body;
     const user = await User.findOne({ email: email });
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.office365.com',
-      port: 587,
-      secure: false, // true para 465, false para outras portas
-      auth: {
-        user: process.env.SENDGRID_USERNAME,
-        pass: process.env.SENDGRID_PASSWORD,
-      },
-    });
-
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     if(!user){
       return res.status(400).json({error: 'nenhum usuário com esse email foi encontrado!'});
     }
@@ -45,7 +36,9 @@ export async function sendEmailToUser(req: Request, res: Response){
       text: `Olá,\nSeu código de verificação é: ${code}`,
     };
 
-    await transporter.sendMail(mailOptions);
+    sgMail.send(mailOptions).then(() => {
+      console.log('email enviado');
+    });
     return res.status(200).json({ message: 'Enviado com sucesso!', token });
 
   } catch (error) {
