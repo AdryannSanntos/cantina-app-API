@@ -19,7 +19,7 @@ export async function sendEmailToUser(req: Request, res: Response){
     // res.status(201).json(newPassword);
     const { email } = req.body;
     const user = await User.findOne({ email: email });
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    sgMail.setApiKey(process.env.ADMIN_EMAIL_API_KEY);
     if(!user){
       return res.status(400).json({error: 'nenhum usuário com esse email foi encontrado!'});
     }
