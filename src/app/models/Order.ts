@@ -29,5 +29,13 @@ export const Order = model('Order', new Schema({
         default: 1
       }
     }]
+  },
+  discount: Number,
+  discountType: String,
+  totalPrice: Number,
+  user: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
   }
 }));

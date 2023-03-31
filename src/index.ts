@@ -6,11 +6,11 @@ import mongoose from 'mongoose';
 
 const app = express();
 const server = http.createServer(app);
-const uri = process.env.MONGODB_URI ?? '';
-const port = process.env.PORT;
+//const uri = process.env.MONGODB_URI ?? '';
+//const port = process.env.PORT;
 
 mongoose.set('strictQuery', false);
-mongoose.connect(uri)
+mongoose.connect('mongodb+srv://cttadryansantoss:fr187781@cantina-app.0hrzi7i.mongodb.net/test')
   .then(() => {
 
     app.use((req, res, next) => {
@@ -25,7 +25,7 @@ mongoose.connect(uri)
     app.use('/userUploads', express.static(path.resolve(__dirname, '..', 'userUploads')));
     app.use(router);
 
-    server.listen(port, () =>{
+    server.listen(3001, () =>{
       console.log('🚀 O servidor está rodando! link: http://localhost:3001');
     });
   })

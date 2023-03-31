@@ -17,9 +17,11 @@ import { changeUserPassword } from './app/useCases/User/changeUserPassword';
 import { changeUserLevel } from './app/useCases/User/changeUserLevel';
 import { deleteUser } from './app/useCases/User/deleteUser';
 import { loginUser } from './app/useCases/User/loginUser';
-import { updatePassword } from './app/useCases/User/updateUserPassword';
 import { forgetUserPassword } from './app/useCases/User/forgetUserPassword';
 import { sendEmailToUser } from './app/useCases/User/sendEmailToUser';
+import { createCupom } from './app/useCases/Cupom/createCupom';
+import { listCupom } from './app/useCases/Cupom/listCupom';
+import { deleteCupom } from './app/useCases/Cupom/deleteCupom';
 
 
 export const router = Router();
@@ -96,3 +98,12 @@ router.patch('/user/level/:userId', changeUserLevel);
 
 // Change User Level
 router.post('/user/send', sendEmailToUser);
+
+// Create a cupom code
+router.post('/cupom', createCupom);
+
+// List all Cupom codes
+router.get('/cupom', listCupom);
+
+// Delete a Cupom codes
+router.delete('/cupom/:cupomId', deleteCupom);
